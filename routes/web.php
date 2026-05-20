@@ -64,3 +64,122 @@ use Illuminate\Support\Facades\Route;
 
 
 // home, about, team, contact, students/all, students/marks
+// Route::get('/', function () {
+//     return 'Homepage';
+// });
+
+// Route::get('/post/{id}/{category}', function ($id, $category) {
+//     return "Post $id details, Category $category";
+// });
+
+// Route::get('/user/{username}', function ($user) {
+//     return 'Username ' . $user;
+// });
+
+// courses/pmp/live
+
+// Route::get('/courses/{course}', function ($course) {
+//     return "Course Name $course";
+// });
+
+// Route::get('/courses/{course}/{type?}', function ($course, $type = '') {
+//     return "Course Name $course, Type $type";
+// })
+//     ->where('course', '[1-5]+')
+//     ->whereIn('type', ['live', 'book']);
+// ->whereAlpha('course');
+// ->whereNumber('course');
+// ->whereAlphaNumeric('course')
+// ->whereNumber('type');
+
+// class Person
+// {
+//     public $name;
+//     public $age;
+
+//     function getName()
+//     {
+//         echo $this->name;
+//         return $this;
+//     }
+
+//     function getAge()
+//     {
+//         echo $this->age;
+//         return $this;
+//     }
+// }
+
+// $p = new Person();
+// $p->name = "Mohammed";
+// $p->age = 32;
+
+// $p->getName()->getAge();
+
+
+// Route::get('/user/{user}', function ($user) {
+//     return "User Profile Page $user";
+// });
+
+// Route::get('/user/all', function () {
+//     return "All User";
+// });
+
+// Route::get('/page/about', function () {
+//     return 'About Page';
+// });
+
+// Route::get('/page/contact', function () {
+//     return 'contact Page';
+// });
+
+// Route::get('/page/{name}', function ($name) {
+//     return $name . ' Custom Page';
+// });
+
+// Route::get('/', function () {
+//     // return "<a href='/about-us'>About Us</a>";
+//     $url = route('aboutpage');
+//     return "<a href='$url'>About Us</a>";
+// });
+
+// Route::get('/about-123', function () {
+//     return 'About Us';
+// })->name('aboutpage');
+
+
+// Route::get('/', function () {
+//     $url1 = route('profile', 'mohnaji94');
+//     $url2 = route('profile', ['abeer123']);
+//     $url3 = route('profile', ['alaaxyz']);
+//     $url4 = route('profile', ['aa123']);
+
+//     echo "<a href='$url1'>mohnaji94</a><br>";
+//     echo "<a href='$url2'>abeer123</a><br>";
+//     echo "<a href='$url3'>alaaxyz</a><br>";
+//     echo "<a href='$url4'>aa123</a><br>";
+// });
+
+// Route::get('/user/{user}', function ($user) {
+//     return "Instagram User Profile for : $user";
+// })->name('profile');
+
+Route::get('/', function () {
+    $products = [
+        'New T Shirt Collection',
+        'Story Books',
+        'Laptops',
+        'TV',
+        'Accessories',
+        'Movies'
+    ];
+    // $product = Product::all();
+    foreach ($products as $product) {
+        echo "<a href='" . route('product', $product) . "'>$product</a><br>";
+    }
+});
+
+
+Route::get('/product/{name}', function ($product) {
+    return "Product $product";
+})->name('product');
