@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DevController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // $moh = new Route();
@@ -164,22 +167,57 @@ use Illuminate\Support\Facades\Route;
 //     return "Instagram User Profile for : $user";
 // })->name('profile');
 
-Route::get('/', function () {
-    $products = [
-        'New T Shirt Collection',
-        'Story Books',
-        'Laptops',
-        'TV',
-        'Accessories',
-        'Movies'
-    ];
-    // $product = Product::all();
-    foreach ($products as $product) {
-        echo "<a href='" . route('product', $product) . "'>$product</a><br>";
-    }
-});
+// Route::get('/', function () {
+//     $products = [
+//         'New T Shirt Collection',
+//         'Story Books',
+//         'Laptops',
+//         'TV',
+//         'Accessories',
+//         'Movies'
+//     ];
+//     // $product = Product::all();
+//     foreach ($products as $product) {
+//         echo "<a href='" . route('product', $product) . "'>$product</a><br>";
+//     }
+// });
+
+// Route::get('/product/{name}', function ($product) {
+//     return "Product $product";
+// })->name('product');
+
+// Route::get('/post/{id}', function ($id) {
+//     return "Post $id";
+// })->where('id', '[a-mA-Z]+');
+
+// Route::prefix('students')->name('students.')->group(function () {
+//     Route::get('/', function () {
+//         return 'All Students';
+//     })->name('all');
+
+//     Route::get('/exams', function () {
+//         return 'Students exams';
+//     })->name('exams');
+
+//     Route::get('/leaves', function () {
+//         return 'Students leaves';
+//     })->name('leaves');
+// });
 
 
-Route::get('/product/{name}', function ($product) {
-    return "Product $product";
-})->name('product');
+// Route::get('/', [MainController::class, 'index'])->name('homepage');
+
+
+// home, about, team, services, contact, contact form
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/about', [MainController::class, 'about'])->name('about');
+Route::get('/team', [MainController::class, 'team'])->name('team');
+Route::get('/services', [MainController::class, 'services'])->name('services');
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::post('/contact', [MainController::class, 'contact_form'])->name('contact_form');
+
+// Route::get('/api/developer', [DevController::class, 'info']);
+
+
+
+Route::get('products', [ProductController::class, 'index'])->name('products/index');
