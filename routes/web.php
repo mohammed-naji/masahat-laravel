@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
 // $moh = new Route();
@@ -209,15 +211,29 @@ use Illuminate\Support\Facades\Route;
 
 
 // home, about, team, services, contact, contact form
-Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/about', [MainController::class, 'about'])->name('about');
-Route::get('/team', [MainController::class, 'team'])->name('team');
-Route::get('/services', [MainController::class, 'services'])->name('services');
-Route::get('/contact', [MainController::class, 'contact'])->name('contact');
-Route::post('/contact', [MainController::class, 'contact_form'])->name('contact_form');
+// Route::get('/', [MainController::class, 'index'])->name('index');
+// Route::get('/about', [MainController::class, 'about'])->name('about');
+// Route::get('/team', [MainController::class, 'team'])->name('team');
+// Route::get('/services', [MainController::class, 'services'])->name('services');
+// Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+// Route::post('/contact', [MainController::class, 'contact_form'])->name('contact_form');
 
 // Route::get('/api/developer', [DevController::class, 'info']);
 
 
 
-Route::get('products', [ProductController::class, 'index'])->name('products/index');
+// Route::get('products', [ProductController::class, 'index'])->name('products/index');
+
+Route::get('/', [SiteController::class, 'index'])->name('index');
+
+// -> // object -> method
+// => // key => value
+// :: // class::method, class
+// . // concatenation
+
+Route::get('/user/{name}/{year}', [SiteController::class, 'age'])->name('user.age');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+});
