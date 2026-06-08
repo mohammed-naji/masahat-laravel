@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\FurnitureController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SiteController;
@@ -241,9 +242,16 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Personal Website Routes
-Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
-Route::get('/resume', [PersonalController::class, 'resume'])->name('personal.resume');
-Route::get('/projects', [PersonalController::class, 'projects'])->name('personal.projects');
-Route::get('/contact-us', [PersonalController::class, 'contact'])->name('personal.contact');
+// Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
+// Route::get('/resume', [PersonalController::class, 'resume'])->name('personal.resume');
+// Route::get('/projects', [PersonalController::class, 'projects'])->name('personal.projects');
+// Route::get('/contact-us', [PersonalController::class, 'contact'])->name('personal.contact');
 
-Route::get('/services', [FurnitureController::class, 'services']);
+// Route::get('/services', [FurnitureController::class, 'services']);
+
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/products', [HomeController::class, 'products'])->name('products');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('testimonials');
