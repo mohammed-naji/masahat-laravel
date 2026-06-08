@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\DevController;
+use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\PersonalController;
 use Illuminate\Support\Facades\Route;
 
 // $moh = new Route();
@@ -224,16 +226,24 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('products', [ProductController::class, 'index'])->name('products/index');
 
-Route::get('/', [SiteController::class, 'index'])->name('index');
+// Route::get('/', [SiteController::class, 'index'])->name('index');
 
 // -> // object -> method
 // => // key => value
 // :: // class::method, class
 // . // concatenation
 
-Route::get('/user/{name}/{year}', [SiteController::class, 'age'])->name('user.age');
+// Route::get('/user/{name}/{year}', [SiteController::class, 'age'])->name('user.age');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+// Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-});
+//     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+// });
+
+// Personal Website Routes
+Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
+Route::get('/resume', [PersonalController::class, 'resume'])->name('personal.resume');
+Route::get('/projects', [PersonalController::class, 'projects'])->name('personal.projects');
+Route::get('/contact-us', [PersonalController::class, 'contact'])->name('personal.contact');
+
+Route::get('/services', [FurnitureController::class, 'services']);
