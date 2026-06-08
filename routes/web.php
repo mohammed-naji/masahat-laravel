@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\DevController;
+use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FurnitureController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
@@ -255,3 +256,13 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('testimonials');
+
+// Forms Routes
+Route::get('/form1', [FormsController::class, 'form1'])->name('form1');
+Route::post('/form1', [FormsController::class, 'form1_data']);
+
+
+// camelCaseLetter
+// PascalCaseLetter
+// snake_case_letter
+// kebab-case-letter
