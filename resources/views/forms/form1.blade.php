@@ -15,7 +15,9 @@
         <h1>Basic Form</h1>
         <form action="{{ route('form1') }}" method="POST">
             @csrf
-            <input type="text" class="form-control mb-3" placeholder="Type anything here.." name="abc">
+            <input type="text" class="form-control mb-3" placeholder="Email Address.." name="email">
+            <input type="password" class="form-control mb-3" placeholder="Your password.." name="password"
+                autocomplete="new-password">
             <button class="btn btn-success">Go</button>
         </form>
     </div>

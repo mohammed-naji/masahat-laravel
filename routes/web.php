@@ -261,6 +261,12 @@ Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('test
 Route::get('/form1', [FormsController::class, 'form1'])->name('form1');
 Route::post('/form1', [FormsController::class, 'form1_data']);
 
+Route::get('/form2', [FormsController::class, 'form2'])->name('form2');
+Route::post('/form2', [FormsController::class, 'form2_data']);
+
+Route::get('/register', [FormsController::class, 'register'])->name('register');
+Route::post('/register', [FormsController::class, 'register_data']);
+
 
 // camelCaseLetter
 // PascalCaseLetter
