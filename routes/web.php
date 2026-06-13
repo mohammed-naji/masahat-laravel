@@ -267,6 +267,9 @@ Route::post('/form2', [FormsController::class, 'form2_data']);
 Route::get('/register', [FormsController::class, 'register'])->name('register');
 Route::post('/register', [FormsController::class, 'register_data']);
 
+Route::get('/form3', [FormsController::class, 'form3'])->name('form3');
+Route::post('/form3', [FormsController::class, 'form3_data']);
+
 
 // camelCaseLetter
 // PascalCaseLetter

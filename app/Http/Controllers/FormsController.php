@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Form3Request;
+use App\Rules\WordsCount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FormsController extends Controller
 {
@@ -67,6 +70,46 @@ class FormsController extends Controller
             'phone' => 'required',
             'password' => 'required|confirmed',
         ]);
+
+        dd($request->all());
+    }
+
+    function form3()
+    {
+        return view('forms.form3');
+    }
+
+    function form3_data(Request $request)
+    {
+        // dd($request->all());
+        // 1. validation
+        // -- request validation
+        $request->validate([
+            'name' => ['required', 'min:2', new WordsCount(4)],
+            'email' => 'required|email|ends_with:gmail.com',
+            'subject' => ['required', new WordsCount(2)],
+            // 'message' => 'required'
+        ], [
+            'required' => 'هذا الحقل مطلووووووب',
+            'name.required' => 'الاسم مطلوووب',
+            'email.required' => 'الايميل اهم من اسمك'
+        ]);
+        // -- file validation
+        // -- validator class
+
+        // $validator = Validator::make($request->all(), [
+        //     'name' => ['required', 'min:2'],
+        //     'email' => 'required|email|ends_with:gmail.com',
+        //     'subject' => 'required',
+        //     'message' => 'required'
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return [
+        //         'status' => 'false',
+        //         'message' => 'There is an error in some fields'
+        //     ];
+        // }
 
         dd($request->all());
     }
