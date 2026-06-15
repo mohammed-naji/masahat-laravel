@@ -113,4 +113,61 @@ class FormsController extends Controller
 
         dd($request->all());
     }
+
+    function form4()
+    {
+        return view('forms.form4');
+    }
+
+    function form4_data(Request $request)
+    {
+        // dd($request->all());
+        // move_uploaded_file()
+        //1. validation
+        $request->validate([
+            'name' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg'
+        ]);
+
+        //2. save files
+        // Mohammed Naji => mohammed naji => mohammed_naji
+        // kjhhsdahfasldkjfhdhflhsahfhsaflhdsahfjkhdskfhjka.JPG
+        // 321654657_4654975646_mohammed_naji.JPG
+
+        // $ex = $request->file('image')->getClientOriginalExtension();
+        // $name = str_replace(' ', '_', strtolower($request->name));
+        // $path = rand() . '_' . time() . '_' . $name . '.' . $ex;
+
+        // dd($path);
+
+        // $path = rand() . time() . $request->file('image')->getClientOriginalName();
+        // $request->file('image')->move(public_path('uploads'), $name);
+
+        $name = $request->name;
+        $path = $request->file('image')->store('uploads', 'custom');
+        //3. save in db
+
+        //4. redirect
+        return view('forms.form4_data', compact('name', 'path'));
+
+        // dd($path);
+    }
+
+    function form5()
+    {
+        return view('forms.form5');
+    }
+
+    function form5_data(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'hobbies' => 'required',
+            'education' => 'required',
+        ]);
+
+
+        dd($request->all());
+    }
 }

@@ -1,4 +1,4 @@
-@props(['name' => '', 'placeholder' => '', 'label' => '', 'type' => 'text'])
+@props(['name', 'placeholder' => '', 'label' => '', 'type' => 'text'])
 <div class="mb-3">
     @if ($label)
         <label for="{{ $name }}">{{ $label }}</label>
