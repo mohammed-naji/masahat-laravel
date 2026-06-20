@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Form3Request;
+use App\Mail\TestMail;
 use App\Rules\WordsCount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class FormsController extends Controller
@@ -85,8 +87,8 @@ class FormsController extends Controller
         // 1. validation
         // -- request validation
         $request->validate([
-            'name' => ['required', 'min:2', new WordsCount(4)],
-            'email' => 'required|email|ends_with:gmail.com',
+            'name' => ['required', 'min:2'],
+            'email' => 'required|email',
             'subject' => ['required', new WordsCount(2)],
             // 'message' => 'required'
         ], [
@@ -111,7 +113,15 @@ class FormsController extends Controller
         //     ];
         // }
 
-        dd($request->all());
+        // dd($request->all());
+
+        $data = $request->except('_token');
+
+        // dd($data);
+
+        Mail::to('edaod886@gmail.com')->send(new TestMail($data));
+
+        dd('Mail Sent');
     }
 
     function form4()

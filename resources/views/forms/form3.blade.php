@@ -26,8 +26,8 @@
             @csrf
 
             <x-input name="name" placeholder="Your Name.." label="Name" />
-            <x-input name="email" placeholder="Your Email.." type="email" />
-            <x-input name="subject" placeholder="Your Subject.." />
+            <x-input name="email" placeholder="Your Email.." type="email" label="Email" />
+            <x-input name="subject" placeholder="Your Subject.." label="Subject" />
 
             {{-- <div class="mb-3">
                 <label for="name">Name</label>
@@ -56,14 +56,14 @@
                 @enderror
             </div> --}}
 
-            {{-- <div class="mb-3">
+            <div class="mb-3">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" placeholder="Your message.."
                     class="form-control @error('message') is-invalid @enderror" rows="5">{{ old('message') }}</textarea>
                 @error('message')
                     <small class="invalid-feedback">{{ $message }}</small>
                 @enderror
-            </div> --}}
+            </div>
 
             <button class="btn btn-success px-5">Send</button>
         </form>
