@@ -24,14 +24,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Post::factory(50)->create();
-        Tag::factory(100)->create();
+        // Post::factory(50)->create();
+        // Tag::factory(100)->create();
 
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt(123456789)
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Super Admin',
+        //     'email' => 'superadmin@gmail.com',
+        //     'email_verified_at' => now(),
+        //     'password' => bcrypt(123456789)
+        // ]);
     }
 }

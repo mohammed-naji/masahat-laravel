@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Posts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> --}}
+
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <h2>All Posts ({{ $posts->count() }})</h2>
+        <a href="{{ route('posts.create') }}" class="btn btn-success">Add New Post</a>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- @if ($posts->count() > 0) --}}
+                @forelse ($posts as $post)
+                    <tr>
+                        <td>{{ $post->id }}</td>
+                        <td><img src="{{ $post->image }}" width="80" class="img-thumbnail" alt=""></td>
+                        <td>{{ $post->title }}</td>
+                        <td>
+                            <i class="far fa-calendar"></i> {{ $post->created_at->format('d , Y') }} <br>
+                            <i class="far fa-clock"></i> {{ $post->created_at->format('h:i:s') }}
+                        </td>
+                        {{-- <td>{{ $post->updated_at->toDateString() }}</td> --}}
+                        <td>{{ $post->updated_at->diffForHumans() }}</td>
+                        <td>
+                            <a data-bs-toggle="modal" data-bs-target="#post-{{ $post->id }}"
+                                href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">Show</a>
+                            <a href="" class="btn btn-sm btn-success">Edit</a>
+                            <a href="" class="btn btn-sm btn-danger">Delete</a>
+
+
+                            <div class="modal fade" id="post-{{ $post->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $post->title }}
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ $post->image }}" alt="">
+                                            <p>{{ $post->content }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No data found!</td>
+                    </tr>
+                @endforelse
+                {{-- @else
+                <tr>
+                    <td colspan="6" class="text-center">No data found!</td>
+                </tr>
+                @endif --}}
+
+            </tbody>
+        </table>
+
+        {{ $posts->links() }}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

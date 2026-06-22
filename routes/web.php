@@ -9,6 +9,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 // $moh = new Route();
@@ -280,3 +281,15 @@ Route::post('/form5', [FormsController::class, 'form5_data']);
 // PascalCaseLetter
 // snake_case_letter
 // kebab-case-letter
+
+
+// Posts CRUD
+// Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
+// Route::post('posts', [PostController::class, 'store'])->name('posts.store');
+// Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+// Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
+// Route::get('posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+// Route::match(['put', 'patch'], 'posts/{id}', [PostController::class, 'update'])->name('posts.update');
+// Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+Route::resource('posts', PostController::class);
