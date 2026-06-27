@@ -15,6 +15,13 @@
 <body>
 
     <div class="container my-5">
+        {{-- @if (session('msg'))
+            <div class="alert alert-success">
+                {{ session('msg') }}
+            </div>
+        @endif --}}
+
+
         <h2>All Posts ({{ $posts->count() }})</h2>
         <a href="{{ route('posts.create') }}" class="btn btn-success">Add New Post</a>
         <table class="table mt-4">
@@ -45,8 +52,17 @@
                             <a data-bs-toggle="modal" data-bs-target="#post-{{ $post->id }}"
                                 href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">Show</a>
                             <a href="" class="btn btn-sm btn-success">Edit</a>
-                            <a href="" class="btn btn-sm btn-danger">Delete</a>
 
+                            {{-- <a href="{{ route('posts.destroy', $post->id) }}" class="btn btn-sm btn-danger">Delete</a> --}}
+
+                            <form class="d-inline" action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+
+                                {{-- <button onclick="return confirm('Are you sure?!')"
+                                    class="btn btn-sm btn-danger">Delete</button> --}}
+                                <button class="btn btn-sm btn-danger btn-delete">Delete</button>
+                            </form>
 
                             <div class="modal fade" id="post-{{ $post->id }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,8 +75,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <img src="{{ $post->image }}" alt="">
-                                            <p>{{ $post->content }}</p>
+                                            <img class="w-100" src="{{ $post->image }}" alt="">
+                                            <p>{!! $post->content !!}</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
@@ -91,6 +107,30 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let delete_btns = document.querySelectorAll('.btn-delete');
+
+        delete_btns.forEach(btn => {
+            btn.onclick = function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        btn.closest('form').submit();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

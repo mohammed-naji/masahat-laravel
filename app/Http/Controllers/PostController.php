@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -48,7 +49,41 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //1. validation
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required',
+            'content' => 'required',
+        ]);
+
+        //2. store data
+        $path = $request->file('image')->store('uploads', 'custom');
+
+        //3. store in database
+        //-- 1. using model instance
+        // $post = new Post();
+        // $post->title = $request->title;
+        // $post->image = $path;
+        // $post->content = $request->content;
+        // $post->save();
+
+        //-- 2. using create method
+        Post::create([
+            'title' => $request->title,
+            'image' => $path,
+            'content' => $request->content,
+        ]);
+        // dd($post);
+
+        //4. flash message
+        flash()->success('Post added successfully');
+
+        //4. redirect
+        return redirect()->route('posts.index');
+        // return redirect(route('posts.index'));
+        // return to_route('posts.index');
+
+        // WYSIWYG => What You See Is What You Get
     }
 
     /**
@@ -100,8 +135,16 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        // delete file
+        // unset, unlink
+        File::delete(public_path($post->image));
+
+        $post->delete();
+
+        flash()->info('Post deleted successfully');
+
+        return redirect()->route('posts.index');
     }
 }

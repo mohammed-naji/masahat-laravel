@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     {{-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> --}}
+    <script src="https://cdn.tiny.cloud/1/q33q3e2ejf5cn0ap4wyy5fbnnwhs5z1hnv4zhr52ny222k0h/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin" crossorigin="anonymous"></script>
 
 </head>
 
@@ -23,13 +25,19 @@
 
             <x-input name="title" label="Title" />
             <x-input name="image" label="Image" type="file" />
-            <x-textarea name="content" label="Content" rows="10" />
+            {{-- <x-textarea name="content" label="Content" rows="6" /> --}}
+            <textarea id="my-content" name="content"></textarea>
 
-            <button class="btn btn-success">Add</button>
+            <button class="btn btn-success">Save</button>
         </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#my-content'
+        });
+    </script>
 </body>
 
 </html>
