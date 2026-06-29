@@ -24,6 +24,21 @@
 
         <h2>All Posts ({{ $posts->count() }})</h2>
         <a href="{{ route('posts.create') }}" class="btn btn-success">Add New Post</a>
+        <a href="{{ route('posts.trash') }}" class="btn btn-danger">Trashed Posts</a>
+        <hr>
+        <form action="">
+            <div class="row">
+                <div class="col-10 col-md-11">
+                    <input type="text" name="q" class="form-control" placeholder="Search about anything..."
+                        value="{{ request()->q }}">
+                </div>
+                <div class="col-2 col-md-1">
+                    <button class="btn btn-success w-100"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <hr>
+
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -51,7 +66,7 @@
                         <td>
                             <a data-bs-toggle="modal" data-bs-target="#post-{{ $post->id }}"
                                 href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">Show</a>
-                            <a href="" class="btn btn-sm btn-success">Edit</a>
+                            <a href="{{ route('posts.edit', $post) }}" class="btn btn-sm btn-success">Edit</a>
 
                             {{-- <a href="{{ route('posts.destroy', $post->id) }}" class="btn btn-sm btn-danger">Delete</a> --}}
 
@@ -103,7 +118,8 @@
             </tbody>
         </table>
 
-        {{ $posts->links() }}
+        {{-- {{ $posts->appends($_GET)->links() }} --}}
+        {{ $posts->withQueryString()->links() }}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

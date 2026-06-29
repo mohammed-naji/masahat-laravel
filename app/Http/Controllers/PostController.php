@@ -11,7 +11,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // $posts = Post::get();
         // $posts = Post::orderBy('id', 'desc')->get();
@@ -19,7 +19,23 @@ class PostController extends Controller
         // $posts = Post::latest()->paginate(10);
         // $NAME
         // $name
-        $posts = Post::latest()->simplePaginate(10);
+
+        // if ($request->has('q')) {
+        //     $posts = Post::latest()
+        //         ->where('title', 'like', '%' . $request->q . '%')
+        //         ->orWhere('content', 'like', '%' . $request->q . '%')
+        //         ->paginate(10);
+        // } else {
+        //     $posts = Post::latest()->paginate(10);
+        // }
+
+        $posts = Post::latest()
+            ->when($request->filled('q'), function ($query) use ($request) {
+                $query->where('title', 'like', "%{$request->q}%")
+                    ->orWhere('content', 'like', "%{$request->q}%");
+            })
+            ->paginate(10);
+
 
         // http://127.0.0.1:8000/posts?page=2
 
@@ -34,6 +50,31 @@ class PostController extends Controller
         // SELECT * FROM posts order by create_at desc limit 10 offset 30;
 
         return view('posts.index', compact('posts'));
+    }
+
+    function trash()
+    {
+        $posts = Post::onlyTrashed()->paginate(10);
+
+        return view('posts.trash', compact('posts'));
+    }
+
+    function restore(Post $post)
+    {
+        $post->restore();
+
+        flash()->success('Post restored successfully');
+
+        return redirect()->route('posts.index');
+    }
+
+    function forcedelete(Post $post)
+    {
+        $post->forceDelete();
+
+        flash()->success('Post deleted permanently successfully');
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -119,17 +160,42 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+
+        //1. validation
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        //2. store data
+        $path = $post->image;
+        if ($request->hasFile('image')) {
+            File::delete(public_path($path));
+            $path = $request->file('image')->store('uploads', 'custom');
+        }
+
+        //-- 2. using create method
+        $post->update([
+            'title' => $request->title,
+            'image' => $path,
+            'content' => $request->content,
+        ]);
+
+        //4. flash message
+        flash()->warning('Post updated successfully');
+
+        //4. redirect
+        return redirect()->route('posts.index');
     }
 
     /**

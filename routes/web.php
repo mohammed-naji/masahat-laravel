@@ -291,5 +291,7 @@ Route::post('/form5', [FormsController::class, 'form5_data']);
 // Route::get('posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
 // Route::match(['put', 'patch'], 'posts/{id}', [PostController::class, 'update'])->name('posts.update');
 // Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
-
+Route::get('posts/trash', [PostController::class, 'trash'])->name('posts.trash');
+Route::get('posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore')->withTrashed();
+Route::get('posts/{post}/forcedelete', [PostController::class, 'forcedelete'])->name('posts.forcedelete')->withTrashed();
 Route::resource('posts', PostController::class);
