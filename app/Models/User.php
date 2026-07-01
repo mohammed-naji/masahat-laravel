@@ -29,4 +29,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    function identity()
+    {
+        return $this->hasOne(Identity::class)->withDefault();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -34,5 +35,12 @@ class MainController extends Controller
     function contact_form()
     {
         return view('contact_form');
+    }
+
+    function users()
+    {
+        $users = User::with('identity')->latest()->get();
+
+        return view('users.index', compact('users'));
     }
 }

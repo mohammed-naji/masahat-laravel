@@ -295,3 +295,6 @@ Route::get('posts/trash', [PostController::class, 'trash'])->name('posts.trash')
 Route::get('posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore')->withTrashed();
 Route::get('posts/{post}/forcedelete', [PostController::class, 'forcedelete'])->name('posts.forcedelete')->withTrashed();
 Route::resource('posts', PostController::class);
+
+
+Route::get('/users', [MainController::class, 'users'])->name('users');
