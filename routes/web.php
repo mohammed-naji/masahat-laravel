@@ -298,3 +298,4 @@ Route::resource('posts', PostController::class);
 
 
 Route::get('/users', [MainController::class, 'users'])->name('users');
+Route::get('/identity', [MainController::class, 'identity'])->name('identity');

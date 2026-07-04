@@ -30,7 +30,7 @@ class User extends Authenticatable
         ];
     }
 
-    function identity()
+    public function identity()
     {
         return $this->hasOne(Identity::class)->withDefault();
     }
